@@ -1,6 +1,7 @@
 package com.blankapp
 
 import android.app.Application
+import android.util.Log
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -10,6 +11,10 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
+import com.netcore.android.Smartech
+import com.netcore.android.smartechpush.SmartPush
+import com.smartechbasereactnative.SmartechBasePlugin
+import java.lang.ref.WeakReference
 
 class MainApplication : Application(), ReactApplication {
 
@@ -34,6 +39,18 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+      val smartech = Smartech.getInstance(WeakReference(applicationContext))
+      smartech.initializeSdk(this)
+      smartech.trackAppInstallUpdateBySmartech()
+      smartech.setDebugLevel(9)
+      val smartechBasePlugin = SmartechBasePlugin.getInstance()
+      smartechBasePlugin.init(this)
+      try {
+          val smartPush = SmartPush.getInstance(WeakReference(applicationContext))
+          smartPush.fetchAlreadyGeneratedTokenFromFCM()
+      } catch (e: Exception) {
+          Log.e("TAG", "Fetching FCM token failed.")
+      }
     SoLoader.init(this, false)
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
       // If you opted-in for the New Architecture, we load the native entry point for this app.

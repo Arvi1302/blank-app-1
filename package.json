@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "react": "18.2.0",
-    "react-native": "0.74.0"
+    "react-native": "0.74.0",
+    "smartech-base-react-native": "^3.5.2",
+    "smartech-push-react-native": "^3.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

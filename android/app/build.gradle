@@ -104,9 +104,24 @@ android {
     }
 }
 
+repositories {
+    maven { url ('https://artifacts.netcore.co.in/artifactory/android') }
+}
+
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+
+    implementation ("com.netcore.android:smartech-sdk:3.5.4")
+
+    implementation ("com.netcore.android:smartech-push:3.5.1")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.1.2"))
+
+    implementation ("androidx.work:work-runtime-ktx:2.9.0")
+
+    implementation("com.google.firebase:firebase-messaging-ktx:24.0.0")
+
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
